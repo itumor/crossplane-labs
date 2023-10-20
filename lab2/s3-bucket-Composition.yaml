@@ -1,0 +1,27 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: s3buckets
+spec:
+  compositeTypeRef:   # Add this line
+    apiVersion: example.org/v1alpha1
+    kind: S3Bucket
+  resources:
+    - name: bsucket
+      base:
+        apiVersion: s3.aws.upbound.io/v1beta1
+        kind: Bucket
+        spec:
+          forProvider:
+            tags:
+              Name: SampleBucket
+      patches:
+      - type: FromCompositeFieldPath
+        fromFieldPath: metadata.name
+        toFieldPath: spec.forProvider.name
+      - type: FromCompositeFieldPath
+        fromFieldPath: metadata.name
+        toFieldPath: metadata.annotations.crossplane.io/external-name
+      - type: FromCompositeFieldPath
+        fromFieldPath: spec.parameters.region
+        toFieldPath: spec.forProvider.region
