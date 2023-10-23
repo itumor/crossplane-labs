@@ -14,7 +14,12 @@ spec:
         spec:
           forProvider:
             tags:
-              Name: SampleBucket
+              Name: SampleBuckets
+          publishConnectionDetailsTo:
+            name: s3-kubernetes-secret
+          writeConnectionSecretToRef:
+            name: s3-secret
+            namespace: default
       patches:
       - type: FromCompositeFieldPath
         fromFieldPath: metadata.name
