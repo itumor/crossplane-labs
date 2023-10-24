@@ -7,14 +7,19 @@ metadata:
   name: crossplane-cluster-1
   region: eu-central-1
 
-nodeGroups:
-  - name: ng-1
-    instanceType: m5.large
-    desiredCapacity: 1
+#nodeGroups:
+#  - name: ng-1
+#    instanceType: m5.large
+#    desiredCapacity: 1
 
-cloudWatch:
-    clusterLogging:
+managedNodeGroups:
+- name: spot
+  instanceTypes: ["t4g.medium","t4g.small"]
+  spot: true
+
+#cloudWatch:
+    #clusterLogging:
         # enable specific types of cluster control plane logs
-        enableTypes: ["audit", "authenticator", "controllerManager"]
+        # enableTypes: []
         # all supported types: "api", "audit", "authenticator", "controllerManager", "scheduler"
         # supported special values: "*" and "all"
