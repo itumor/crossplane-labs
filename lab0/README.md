@@ -15,3 +15,4 @@ https://docs.crossplane.io/v1.13/getting-started/provider-aws/
 AWS CloudShell
 
 
+https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
