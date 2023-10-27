@@ -8,7 +8,7 @@ spec:
     chart:
       name: argo-cd
       repository: https://argoproj.github.io/argo-helm
-      version: 4.8.3 ## To use devlopment versions, set ">0.0.0-0"
+      version: 5.47.0 ## To use devlopment versions, set ">0.0.0-0"
     namespace: argo-cd
   providerConfigRef:
     name: helm-provider
