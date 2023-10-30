@@ -12,20 +12,20 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: catalog-db-composition
+                  name: catalog-db-crossplane
                   key: username
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: catalog-db-composition
+                  name: catalog-db-crossplane
                   key: password
             - name: DB_READ_ENDPOINT
               valueFrom:
                 secretKeyRef:
-                  name: catalog-db-composition
+                  name: catalog-db-crossplane
                   key: endpoint
             - name: DB_ENDPOINT
               valueFrom:
                 secretKeyRef:
-                  name: catalog-db-composition
+                  name: catalog-db-crossplane
                   key: endpoint

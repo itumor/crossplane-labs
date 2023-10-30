@@ -11,3 +11,6 @@ kubectl create ns catalog
 openssl rand -base64 12
 kubectl create secret generic catalog-db-crossplane-passwd -n catalog --from-literal=password=$(openssl rand -base64 12)
 kubectl delete secret catalog-db-crossplane-passwd -n catalog 
+
+kubectl create ns ui
+kubectl apply -k application/
