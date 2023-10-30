@@ -29,4 +29,4 @@ spec:
       value: crossplane
     vpcId: {{ .Values.VPC_ID }}
   providerConfigRef:
-    name: default
+    name: crossplane-default

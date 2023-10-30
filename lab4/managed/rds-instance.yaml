@@ -35,4 +35,4 @@ spec:
     name: catalog-db-crossplane
     namespace: catalog
   providerConfigRef:
-    name: default
+    name: crossplane-default

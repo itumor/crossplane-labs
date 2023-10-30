@@ -1,0 +1,113 @@
+---
+# Source: chartlab4/templates/rds-instance.yaml
+apiVersion: rds.aws.crossplane.io/v1alpha1
+kind: DBInstance
+metadata:
+  name: crossplane-cluster-1-catalog-crossplane
+  labels:
+    app.kubernetes.io/created-by: eks-workshop
+    helm.sh/chart: chartlab4-0.1.0
+    app.kubernetes.io/name: chartlab4
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  forProvider:
+    allocatedStorage: 20
+    applyImmediately: true
+    autogeneratePassword: true
+    dbInstanceClass: db.t4g.micro
+    dbName: catalog
+    dbSubnetGroupNameRef:
+      name: crossplane-cluster-1-catalog-crossplane
+    engine: mysql
+    engineVersion: "8.0"
+    masterUserPasswordSecretRef:
+      key: password
+      name: catalog-db-crossplane-passwd
+      namespace: catalog
+    masterUsername: admin
+    region: eu-central-1
+    skipFinalSnapshot: true
+    tags:
+    - key: created-by
+      value: eks-workshop-v2
+    - key: env
+      value: crossplane-cluster-1
+    - key: managed-by
+      value: crossplane
+    vpcSecurityGroupIDRefs:
+    - name: crossplane-cluster-1-catalog-crossplane
+  providerConfigRef:
+    name: crossplane-default
+  writeConnectionSecretToRef:
+    name: catalog-db-crossplane
+    namespace: catalog
+---
+# Source: chartlab4/templates/rds-dbgroup.yaml
+apiVersion: database.aws.crossplane.io/v1beta1
+kind: DBSubnetGroup
+metadata:
+  name: crossplane-cluster-1-catalog-crossplane
+  labels:
+    app.kubernetes.io/created-by: eks-workshop
+    helm.sh/chart: chartlab4-0.1.0
+    app.kubernetes.io/name: chartlab4
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  forProvider:
+    description: DBSubnet group
+    region: eu-central-1
+    subnetIds:
+    - subnet-0cf10ddf7d7030595
+    - subnet-077cc3629139b78e5
+    - subnet-0dbea28dae5bcadd8
+    tags:
+    - key: created-by
+      value: eks-workshop-v2
+    - key: env
+      value: crossplane-cluster-1
+    - key: managed-by
+      value: crossplane
+  providerConfigRef:
+    name: crossplane-default
+---
+# Source: chartlab4/templates/rds-security-group.yaml
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: SecurityGroup
+metadata:
+  name: crossplane-cluster-1-catalog-crossplane
+  labels:
+    app.kubernetes.io/created-by: eks-workshop
+    helm.sh/chart: chartlab4-0.1.0
+    app.kubernetes.io/name: chartlab4
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  forProvider:
+    description: SecurityGroup
+    egress:
+    - ipProtocol: "-1"
+      ipRanges:
+      - cidrIp: 0.0.0.0/0
+    groupName: crossplane-cluster-1-catalog-crossplane 
+    ingress:
+    - fromPort: 3306
+      ipProtocol: tcp
+      ipRanges:
+      - cidrIp: 192.168.0.0/16
+      toPort: 3306
+    region: eu-central-1
+    tags:
+    - key: created-by
+      value: eks-workshop-v2
+    - key: env
+      value: crossplane-cluster-1
+    - key: managed-by
+      value: crossplane
+    vpcId: vpc-0c6b124ec9dd4d0de
+  providerConfigRef:
+    name: crossplane-default

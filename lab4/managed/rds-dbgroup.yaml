@@ -20,4 +20,4 @@ spec:
     - key: managed-by
       value: crossplane
   providerConfigRef:
-    name: default
+    name: crossplane-default
