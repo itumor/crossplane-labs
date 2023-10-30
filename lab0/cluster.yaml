@@ -16,6 +16,8 @@ managedNodeGroups:
 - name: spot
   instanceTypes: ["t4g.medium","t4g.small"]
   spot: true
+  minSize: 2
+  maxSize: 4
 
 #cloudWatch:
     #clusterLogging:
