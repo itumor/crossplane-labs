@@ -1,0 +1,24 @@
+apiVersion: database.aws.crossplane.io/v1beta1
+kind: DBSubnetGroup
+metadata:
+  name: {{ .Values.EKS_CLUSTER_NAME }}-catalog-crossplane
+  labels:
+    app.kubernetes.io/created-by: eks-workshop
+  {{- include "chartlab4.labels" . | nindent 4 }}
+spec:
+  forProvider:
+    description: DBSubnet group
+    region: {{ .Values.AWS_REGION }}
+    subnetIds:
+    - {{ .Values.VPC_PRIVATE_SUBNET_ID_1 }}
+    - {{ .Values.VPC_PRIVATE_SUBNET_ID_2 }}
+    - {{ .Values.VPC_PRIVATE_SUBNET_ID_3 }}
+    tags:
+    - key: created-by
+      value: eks-workshop-v2
+    - key: env
+      value: {{ .Values.EKS_CLUSTER_NAME }}
+    - key: managed-by
+      value: crossplane
+  providerConfigRef:
+    name: default

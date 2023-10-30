@@ -1,0 +1,32 @@
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: SecurityGroup
+metadata:
+  name: {{ .Values.EKS_CLUSTER_NAME }}-catalog-crossplane
+  labels:
+    app.kubernetes.io/created-by: eks-workshop
+  {{- include "chartlab4.labels" . | nindent 4 }}
+spec:
+  forProvider:
+    description: SecurityGroup
+    egress:
+    - ipProtocol: "-1"
+      ipRanges:
+      - cidrIp: 0.0.0.0/0
+    groupName: {{ .Values.EKS_CLUSTER_NAME }}-catalog-crossplane 
+    ingress:
+    - fromPort: 3306
+      ipProtocol: tcp
+      ipRanges:
+      - cidrIp: {{ .Values.VPC_CIDR }}
+      toPort: 3306
+    region: {{ .Values.AWS_REGION }}
+    tags:
+    - key: created-by
+      value: eks-workshop-v2
+    - key: env
+      value: {{ .Values.EKS_CLUSTER_NAME }}
+    - key: managed-by
+      value: crossplane
+    vpcId: {{ .Values.VPC_ID }}
+  providerConfigRef:
+    name: default

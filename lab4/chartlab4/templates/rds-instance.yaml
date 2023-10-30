@@ -1,0 +1,39 @@
+apiVersion: rds.aws.crossplane.io/v1alpha1
+kind: DBInstance
+metadata:
+  name: {{ .Values.EKS_CLUSTER_NAME }}-catalog-crossplane
+  labels:
+    app.kubernetes.io/created-by: eks-workshop
+  {{- include "chartlab4.labels" . | nindent 4 }}
+spec:
+  forProvider:
+    allocatedStorage: 20
+    applyImmediately: true
+    autogeneratePassword: true
+    dbInstanceClass: db.t4g.micro
+    dbName: catalog
+    dbSubnetGroupNameRef:
+      name: {{ .Values.EKS_CLUSTER_NAME }}-catalog-crossplane
+    engine: mysql
+    engineVersion: "8.0"
+    masterUserPasswordSecretRef:
+      key: password
+      name: catalog-db-crossplane-passwd
+      namespace: catalog
+    masterUsername: admin
+    region: {{ .Values.AWS_REGION }}
+    skipFinalSnapshot: true
+    tags:
+    - key: created-by
+      value: eks-workshop-v2
+    - key: env
+      value: {{ .Values.EKS_CLUSTER_NAME }}
+    - key: managed-by
+      value: crossplane
+    vpcSecurityGroupIDRefs:
+    - name: {{ .Values.EKS_CLUSTER_NAME }}-catalog-crossplane
+  providerConfigRef:
+    name: default
+  writeConnectionSecretToRef:
+    name: catalog-db-crossplane
+    namespace: catalog
