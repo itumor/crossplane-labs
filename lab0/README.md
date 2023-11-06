@@ -18,9 +18,3 @@ AWS CloudShell
 https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
 
 
-eksctl create nodegroup \
-  --cluster=crossplane-cluster-1 --region=eu-central-1\
-  --managed --spot --name=ng-spot \
-  --instance-types=m5.large,m4.large,m5d.large,m5a.large,m5ad.large,m5n.large,m5dn.large\
-  --nodes-min=2\
-  --nodes-max=5
