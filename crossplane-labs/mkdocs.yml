@@ -4,6 +4,8 @@ repo_url: https://github.com/itumor/crossplane-labs
 nav:
   - Home: index.md
   - About: about.md
+  - lab0: lab0.md
+  - About: about.md
 theme:
   name: mkdocs
   highlightjs: true
