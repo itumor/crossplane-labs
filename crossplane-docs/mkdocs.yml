@@ -1,15 +1,59 @@
 site_name: Crossplane Labs
-site_url: https://example.com/
+site_url: https://itumor.github.io/crossplane-labs/
 repo_url: https://github.com/itumor/crossplane-labs
+copyright: Copyright &copy; 2023 Ebrahim
 nav:
   - Home: index.md
-  - About: about.md
-  - lab0: lab0.md
+  - "Beginner's Labs":
+    - lab-00: lab0.md
+    - lab-01: lab1.md
+    - lab-02: lab2.md
+    - lab-03: lab3.md
+    - lab-04: lab4.md
+    - lab-05: lab5.md
+  - "Intermediate Labs":
+    - lab-06: lab6.md
+    - lab-07: lab7.md
+    - lab-08: lab8.md
+    - lab-09: lab9.md
+    - lab-10: lab10.md
+  - "Advanced Labs":
+    - lab-11: lab11.md
+    - lab-12: lab12.md
+    - lab-13: lab13.md
+    - lab-14: lab14.md
+    - lab-15: lab15.md
+  - "Expert Labs":
+    - lab-16: lab16.md
+    - lab-17: lab17.md
+    - lab-18: lab18.md
+    - lab-19: lab19.md
+    - lab-20: lab20.md
+  - "Mastermind Labs":
+    - lab-21: lab21.md
+    - lab-22: lab22.md
+    - lab-23: lab23.md
+    - lab-24: lab24.md
+    - lab-25: lab25.md
   - About: about.md
 theme:
-  name: mkdocs
+  name: material
   highlightjs: true
   hljs_languages:
     - yaml
     - rust
   nav_style: dark
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  features:
+    - header.autohide
+    - navigation.footer
+
+extra:
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
