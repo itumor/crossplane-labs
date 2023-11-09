@@ -25,3 +25,10 @@ https://squidfunk.github.io/mkdocs-material/
 https://www.mkdocs.org/
 
 https://itumor.github.io/crossplane-labs/
+
+
+https://diagrams.mingrammer.com/
+https://diagrams.mingrammer.com/docs/getting-started/installation
+https://graphviz.gitlab.io/download/
+
+
