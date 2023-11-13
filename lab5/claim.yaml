@@ -8,4 +8,4 @@ spec:
   storageGB: 20
   secret: catalog-db-composition
   resourceConfig:
-    providerConfigName: default
+    providerConfigName: crossplane-default

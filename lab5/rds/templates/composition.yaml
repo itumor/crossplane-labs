@@ -1,0 +1,146 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: rds-mysql.awsblueprints.io
+spec:
+  compositeTypeRef:
+    apiVersion: awsblueprints.io/v1alpha1
+    kind: XRelationalDatabase
+  patchSets:
+  - name: common-fields
+    patches:
+    - fromFieldPath: spec.resourceConfig.providerConfigName
+      toFieldPath: spec.providerConfigRef.name
+      type: FromCompositeFieldPath
+  resources:
+  - base:
+      apiVersion: database.aws.crossplane.io/v1beta1
+      kind: DBSubnetGroup
+      metadata:
+        labels:
+          app.kubernetes.io/created-by: eks-workshop
+      spec:
+        forProvider:
+          description: rds-mysql
+          region:  {{ .Values.AWS_REGION }}
+          subnetIds:
+          - {{ .Values.VPC_PRIVATE_SUBNET_ID_1 }}
+          - {{ .Values.VPC_PRIVATE_SUBNET_ID_2 }}
+          - {{ .Values.VPC_PRIVATE_SUBNET_ID_3 }}
+          tags:
+          - key: created-by
+            value: eks-workshop-v2
+          - key: env
+            value: {{ .Values.EKS_CLUSTER_NAME }}
+          - key: managed-by
+            value: crossplane
+    patches:
+    - patchSetName: common-fields
+      type: PatchSet
+    - fromFieldPath: metadata.name
+      toFieldPath: metadata.annotations[crossplane.io/external-name]
+      transforms:
+      - string:
+          fmt:  {{ .Values.EKS_CLUSTER_NAME }}-%s
+        type: string
+  - base:
+      apiVersion: ec2.aws.crossplane.io/v1beta1
+      kind: SecurityGroup
+      metadata:
+        labels:
+          app.kubernetes.io/created-by: eks-workshop
+      spec:
+        forProvider:
+          description: rds-mysq-sg
+          ingress:
+          - fromPort: 3306
+            ipProtocol: tcp
+            ipRanges:
+            - cidrIp: {{ .Values.VPC_CIDR }}
+            toPort: 3306
+          region: {{ .Values.AWS_REGION }}
+          tags:
+          - key: created-by
+            value: eks-workshop-v2
+          - key: env
+            value: {{ .Values.EKS_CLUSTER_NAME }}
+          - key: managed-by
+            value: crossplane
+          - key: Name
+            value: to-be-patch
+          vpcId:  {{ .Values.VPC_ID }}
+    patches:
+    - patchSetName: common-fields
+      type: PatchSet
+    - fromFieldPath: metadata.name
+      toFieldPath: spec.forProvider.groupName
+      transforms:
+      - string:
+          fmt: {{ .Values.EKS_CLUSTER_NAME }}-rds-mysql-sg-%s
+        type: string
+    - fromFieldPath: metadata.name
+      toFieldPath: spec.forProvider.tags[3].value
+      transforms:
+      - string:
+          fmt: {{ .Values.EKS_CLUSTER_NAME }}-rds-mysql-sg-%s
+        type: string
+  - base:
+      apiVersion: rds.aws.crossplane.io/v1alpha1
+      kind: DBInstance
+      metadata:
+        labels:
+          app.kubernetes.io/created-by: eks-workshop
+      spec:
+        forProvider:
+          allocatedStorage: 20
+          applyImmediately: true
+          autogeneratePassword: true
+          dbInstanceClass: db.t4g.micro
+          dbName: to-be-patched
+          dbSubnetGroupNameSelector:
+            matchControllerRef: true
+          engine: mysql
+          engineVersion: "8.0"
+          masterUserPasswordSecretRef:
+            key: password
+            name: to-be-patched
+            namespace: to-be-patched
+          masterUsername: admin
+          publiclyAccessible: false
+          region: {{ .Values.AWS_REGION }}
+          skipFinalSnapshot: true
+          tags:
+          - key: created-by
+            value: eks-workshop-v2
+          - key: env 
+            value:  {{ .Values.EKS_CLUSTER_NAME }}
+          - key: managed-by
+            value: crossplane
+          vpcSecurityGroupIDSelector:
+            matchControllerRef: true
+          vpcSecurityGroupIDs: []
+    patches:
+    - patchSetName: common-fields
+      type: PatchSet
+    - fromFieldPath: spec.storageGB
+      toFieldPath: spec.forProvider.allocatedStorage
+    - fromFieldPath: spec.databaseName
+      toFieldPath: spec.forProvider.dbName
+    - fromFieldPath: metadata.labels[crossplane.io/claim-namespace]
+      toFieldPath: spec.writeConnectionSecretToRef.namespace
+    - fromFieldPath: spec.secret
+      toFieldPath: spec.writeConnectionSecretToRef.name
+    - fromFieldPath: metadata.labels[crossplane.io/claim-namespace]
+      toFieldPath: spec.forProvider.masterUserPasswordSecretRef.namespace
+    - fromFieldPath: spec.secret
+      toFieldPath: spec.forProvider.masterUserPasswordSecretRef.name
+      transforms:
+      - string:
+          fmt: '%s-passwd'
+        type: string
+    - fromFieldPath: metadata.name
+      toFieldPath: metadata.annotations[crossplane.io/external-name]
+      transforms:
+      - string:
+          fmt: {{ .Values.EKS_CLUSTER_NAME }}-%s
+        type: string

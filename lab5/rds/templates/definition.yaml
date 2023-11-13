@@ -1,0 +1,41 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xrelationaldatabases.awsblueprints.io
+spec:
+  claimNames:
+    kind: RelationalDatabase
+    plural: relationaldatabases
+  defaultCompositionRef:
+    name: rds-mysql.awsblueprints.io
+  group: awsblueprints.io
+  names:
+    kind: XRelationalDatabase
+    plural: xrelationaldatabases
+  versions:
+  - name: v1alpha1
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              databaseName:
+                type: string
+              resourceConfig:
+                description: ResourceConfig defines general properties of this AWS
+                  resource.
+                properties:
+                  providerConfigName:
+                    type: string
+                type: object
+              secret:
+                type: string
+              storageGB:
+                type: integer
+            required:
+            - secret
+            - databaseName
+            - storageGB
+            type: object
+    served: true

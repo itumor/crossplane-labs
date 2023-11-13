@@ -1,0 +1,10 @@
+kubernetesClusterDomain: cluster.local
+AWS_REGION: eu-central-1
+
+EKS_CLUSTER_NAME: crossplane-cluster-1
+
+VPC_PRIVATE_SUBNET_ID_1: subnet-0cf10ddf7d7030595
+VPC_PRIVATE_SUBNET_ID_2: subnet-077cc3629139b78e5
+VPC_PRIVATE_SUBNET_ID_3: subnet-0dbea28dae5bcadd8
+VPC_CIDR: 192.168.0.0/16
+VPC_ID: vpc-0c6b124ec9dd4d0de
