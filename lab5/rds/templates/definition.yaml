@@ -22,6 +22,8 @@ spec:
             properties:
               databaseName:
                 type: string
+              password:
+                type: string
               resourceConfig:
                 description: ResourceConfig defines general properties of this AWS
                   resource.
@@ -37,5 +39,6 @@ spec:
             - secret
             - databaseName
             - storageGB
+            - password
             type: object
     served: true

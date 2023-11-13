@@ -6,6 +6,7 @@ metadata:
 spec:
   databaseName: catalog
   storageGB: 20
-  secret: catalog-db-composition
+  secret: catalog-db-crossplane
+  password: catalog-db-crossplane-passwd
   resourceConfig:
     providerConfigName: crossplane-default

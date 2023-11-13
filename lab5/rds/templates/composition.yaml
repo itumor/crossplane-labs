@@ -132,12 +132,8 @@ spec:
       toFieldPath: spec.writeConnectionSecretToRef.name
     - fromFieldPath: metadata.labels[crossplane.io/claim-namespace]
       toFieldPath: spec.forProvider.masterUserPasswordSecretRef.namespace
-    - fromFieldPath: spec.secret
+    - fromFieldPath: spec.password
       toFieldPath: spec.forProvider.masterUserPasswordSecretRef.name
-      transforms:
-      - string:
-          fmt: '%s-passwd'
-        type: string
     - fromFieldPath: metadata.name
       toFieldPath: metadata.annotations[crossplane.io/external-name]
       transforms:
