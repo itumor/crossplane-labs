@@ -33,13 +33,18 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: catalog-db
+                  name: catalog-db-crossplane
                   key: username
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: catalog-db
+                  name: catalog-db-crossplane
                   key: password
+            - name: DB_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: catalog-db-crossplane
+                  key: endpoint 
           envFrom:
             - configMapRef:
                 name: catalog

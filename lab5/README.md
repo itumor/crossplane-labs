@@ -11,4 +11,4 @@ kubectl create secret generic catalog-db-crossplane-passwd -n catalog --from-lit
 
 kubectl apply -f /lab5/claim.yaml
 kubectl get managed
-kubectl apply -f /lab5/application
+kubectl apply -k /lab5/application
