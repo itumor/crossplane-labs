@@ -1,0 +1,23 @@
+apiVersion: ec2.aws.crossplane.io/v1alpha1
+kind: LaunchTemplate
+metadata:
+  name: test-crossplane-obj
+spec:
+  forProvider:
+    launchTemplateData:
+      imageID: ami-0a485299eeb98b979 #Amazon Linux 2023 AMI
+      instanceMarketOptions:
+        marketType: spot
+        spotOptions:
+          instanceInterruptionBehavior: terminate
+          spotInstanceType: one-time
+      instanceType: m5.large
+      tagSpecifications:
+        - resourceType: volume
+          tags:
+            - key: original
+              value: "1"
+    region: eu-central-1
+    launchTemplateName: test-crossplane-obj
+  providerConfigRef:
+    name: crossplane-default

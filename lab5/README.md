@@ -12,3 +12,9 @@ kubectl create secret generic catalog-db-crossplane-passwd -n catalog --from-lit
 kubectl apply -f /lab5/claim.yaml
 kubectl get managed
 kubectl apply -k /lab5/application
+
+
+https://github.com/crossplane-contrib/provider-sql
+
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'192.168.1.221' IDENTIFIED BY 'your_password' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

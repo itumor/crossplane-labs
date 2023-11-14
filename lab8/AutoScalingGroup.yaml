@@ -1,0 +1,22 @@
+
+apiVersion: autoscaling.aws.crossplane.io/v1beta1
+kind: AutoScalingGroup
+metadata:
+  name: autoscalinggroup-example
+spec:
+
+  forProvider:
+    availabilityZones:
+      - eu-central-1a
+      - eu-central-1b
+      - eu-central-1c
+    desiredCapacity: 1
+    launchTemplate:
+      launchTemplateName: test-crossplane-obj
+      version: "1"
+    maxSize: 2
+    minSize: 0
+    region: eu-central-1
+  providerConfigRef:
+    name: crossplane-default
+

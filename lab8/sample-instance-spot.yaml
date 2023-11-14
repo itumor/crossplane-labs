@@ -1,0 +1,16 @@
+apiVersion: ec2.aws.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: sample-instance-spot
+spec:
+  forProvider:
+    imageId: ami-0a485299eeb98b979 #Amazon Linux 2023 AMI
+    instanceMarketOptions:
+      marketType: spot
+      spotOptions:
+        instanceInterruptionBehavior: terminate
+        spotInstanceType: one-time
+    instanceType: m5.large
+    region: eu-central-1
+  providerConfigRef:
+    name: crossplane-default
