@@ -19,8 +19,7 @@ This lab will guide you through the setup of a Crossplane AWS S3 provider using 
 - [ ] Check the s3 Bucket available on AWS
 
 ## Steps
-<details>
-  <summary>Steps</summary>
+
 
 ### 1. Configure AWS Credentials
 
@@ -120,4 +119,3 @@ kubectl logs -l app=provider-aws-s3-controller -n crossplane-system
 
 You have successfully configured a Crossplane AWS S3 provider and created an S3 bucket. Refer to [Crossplane AWS Provider Documentation](https://docs.crossplane.io/v1.13/getting-started/provider-aws/) for more information.
 
-</details>
