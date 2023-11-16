@@ -16,6 +16,7 @@ This lab will guide you through the setup of a Crossplane AWS S3 provider using 
 
 Edit the Crossplane ProviderConfig YAML to include your AWS credentials:
 
+
 ```yaml
 `apiVersion: aws.upbound.io/v1beta1
 kind: ProviderConfig
