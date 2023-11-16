@@ -59,10 +59,13 @@ spec:
 
 Apply the configuration to your Kubernetes cluster:
 
+<details> 
+	<summary>Apply s3buckets-crd </summary>
 
 ```bash
 kubectl apply -f s3buckets-crd.yaml 
 ```
+</details>
 
 ### 2. Create a Composition for S3Bucket
 
@@ -108,10 +111,14 @@ spec:
 </details>
 
 Apply the Composition configuration:
+<details> 
+	<summary>Apply Composition </summary>
 
 ```bash
 kubectl apply -f s3buckets-composition.yaml
 ```
+</details>
+
 
 ### 3. Instantiate an S3Bucket resource
 
@@ -131,12 +138,18 @@ spec:
  ```
 
 </details>
-
 Apply the S3Bucket resource configuration:
+
+<details>
+	 <summary>apply bucket</summary>
 
 ```bash
 kubectl apply -f my-s3-bucket.yaml
 ```
+
+</details>
+
+
 ## Conclusion
 
 You have successfully defined a CompositeResourceDefinition for S3 Buckets, created a Composition for mapping to the AWS S3 Bucket resource, and instantiated an S3Bucket resource. This allows you to provision S3 Buckets in your Kubernetes environment using Crossplane. For more information, refer to [Crossplane AWS Provider Documentation](https://docs.crossplane.io/v1.13/getting-started/provider-aws/).
