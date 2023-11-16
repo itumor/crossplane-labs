@@ -10,7 +10,17 @@ This lab will guide you through the setup of a Crossplane AWS S3 provider using 
 -   Crossplane installed on the Kubernetes cluster
 -   AWS account credentials
 
+### Checklist
+
+- [ ] Configure AWS Credentials and the k8s secret 
+- [ ] Install the AWS S3 Provider
+- [ ] Create the Provider Config
+- [ ] Create an S3 Bucket
+- [ ] Check the s3 Bucket available on AWS
+
 ## Steps
+<details>
+  <summary>Steps</summary>
 
 ### 1. Configure AWS Credentials
 
@@ -20,7 +30,7 @@ Edit the Crossplane ProviderConfig YAML to include your AWS credentials:
   <summary>aws-ProviderConfig.yaml</summary>
 
 ```yaml
-`apiVersion: aws.upbound.io/v1beta1
+apiVersion: aws.upbound.io/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
@@ -109,3 +119,5 @@ kubectl logs -l app=provider-aws-s3-controller -n crossplane-system
 ## Conclusion
 
 You have successfully configured a Crossplane AWS S3 provider and created an S3 bucket. Refer to [Crossplane AWS Provider Documentation](https://docs.crossplane.io/v1.13/getting-started/provider-aws/) for more information.
+
+</details>
