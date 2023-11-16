@@ -30,7 +30,7 @@ spec:
     secretRef:
       namespace: crossplane-system
       name: aws-secret
-      key: creds` 
+      key: creds
 ```
 
 </details>
@@ -53,7 +53,7 @@ spec:
   forProvider:
     region: eu-central-1
   providerConfigRef:
-    name: default` 
+    name: default
 ```
 </details>
 
@@ -75,7 +75,7 @@ kind: Provider
 metadata:
   name: provider-aws-s3
 spec:
-  package: xpkg.upbound.io/upbound/provider-aws-s3:v0.37.0` 
+  package: xpkg.upbound.io/upbound/provider-aws-s3:v0.37.0
 ```
 
 </details>
@@ -102,7 +102,7 @@ Check the status and logs to ensure the Crossplane AWS S3 provider and S3 bucket
 
 ```bash
 kubectl get provider,config,bucket
-kubectl logs -l app=provider-aws-s3-controller -n crossplane-system` 
+kubectl logs -l app=provider-aws-s3-controller -n crossplane-system
 ```
 </details>
 
