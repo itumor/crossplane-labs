@@ -48,7 +48,7 @@ theme:
   features:
     - header.autohide
     - navigation.footer
-
+    - content.code.copy
 extra:
   consent:
     title: Cookie consent
