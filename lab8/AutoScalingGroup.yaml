@@ -17,6 +17,8 @@ spec:
     maxSize: 2
     minSize: 0
     region: eu-central-1
+    loadBalancerNames:
+      - sample-elb
   providerConfigRef:
     name: crossplane-default
 

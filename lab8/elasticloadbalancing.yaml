@@ -1,0 +1,21 @@
+apiVersion: elasticloadbalancing.aws.crossplane.io/v1alpha1
+kind: ELB
+metadata:
+  name: sample-elb
+spec:
+  forProvider:
+    availabilityZones:
+      - eu-central-1a
+      - eu-central-1b
+      - eu-central-1c
+    listeners:
+      - instancePort: 80
+        instanceProtocol: http
+        loadBalancerPort: 80
+        protocol: http
+    region: eu-central-1
+    tags:
+      - key: k1
+        value: v1
+  providerConfigRef:
+    name: crossplane-default

@@ -17,6 +17,7 @@ spec:
           tags:
             - key: original
               value: "1"
+      userData: 'IyEvYmluL2Jhc2gKc3VkbyB5dW0gdXBkYXRlIC15CnN1ZG8gYW1hem9uLWxpbnV4LWV4dHJhcyBpbnN0YWxsIG5naW54MSAteSAKc3VkbyBzeXN0ZW1jdGwgZW5hYmxlIG5naW54CnN1ZG8gc3lzdGVtY3RsIHN0YXJ0IG5naW54CnN1ZG8geXVtIGluc3RhbGwgZWMyLWluc3RhbmNlLWNvbm5lY3QgLXk='
     region: eu-central-1
     launchTemplateName: test-crossplane-obj
   providerConfigRef:
