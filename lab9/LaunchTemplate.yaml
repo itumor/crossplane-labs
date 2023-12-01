@@ -11,14 +11,18 @@ spec:
         spotOptions:
           instanceInterruptionBehavior: terminate
           spotInstanceType: one-time
+      keyName: web-key
       instanceType: m5.large
       tagSpecifications:
         - resourceType: volume
           tags:
             - key: original
               value: "1"
-      userData: 'IyEvYmluL2Jhc2gKc3VkbyB5dW0gdXBkYXRlIC15CnN1ZG8gYW1hem9uLWxpbnV4LWV4dHJhcyBpbnN0YWxsIG5naW54MSAteSAKc3VkbyBzeXN0ZW1jdGwgZW5hYmxlIG5naW54CnN1ZG8gc3lzdGVtY3RsIHN0YXJ0IG5naW54CnN1ZG8geXVtIGluc3RhbGwgZWMyLWluc3RhbmNlLWNvbm5lY3QgLXk='
+      userData: 'IyEvYmluL2Jhc2gNCnN1ZG8geXVtIHVwZGF0ZSAteQ0Kc3VkbyB5dW0gaW5zdGFsbCBuZ2lueCAteQ0Kc3VkbyBzeXN0ZW1jdGwgc3RhcnQgbmdpbngNCnN1ZG8gc3lzdGVtY3RsIGVuYWJsZSBuZ2lueA0Kc3VkbyBzeXN0ZW1jdGwgc3RhdHVzIG5naW54DQo='
     region: eu-central-1
     launchTemplateName: test-crossplane-obj
+  writeConnectionSecretToRef:
+    name: ec2-secret
+    namespace: crossplane-system
   providerConfigRef:
     name: crossplane-default

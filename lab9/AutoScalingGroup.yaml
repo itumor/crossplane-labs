@@ -19,6 +19,9 @@ spec:
     region: eu-central-1
     loadBalancerNames:
       - sample-elb
+  writeConnectionSecretToRef:
+    name: ec2-auto-secret
+    namespace: crossplane-system
   providerConfigRef:
     name: crossplane-default
 

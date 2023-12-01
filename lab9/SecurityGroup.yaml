@@ -1,0 +1,23 @@
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: SecurityGroup
+metadata:
+  name: elb-sg
+spec:
+  forProvider:
+    description: elastic load balancing Security Group
+    groupName: ELB-sg
+    egress:
+      - fromPort: -1
+        ipProtocol: "-1"
+        ipRanges:
+          - cidrIp: 0.0.0.0/0
+        toPort: -1
+    ingress:
+      - fromPort: 80
+        ipProtocol: tcp
+        ipRanges:
+          - cidrIp: 0.0.0.0/0
+        toPort: 80
+    region: eu-central-1
+  providerConfigRef:
+    name: crossplane-default
