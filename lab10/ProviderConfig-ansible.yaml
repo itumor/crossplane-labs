@@ -1,0 +1,124 @@
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-ansible
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/provider-ansible:v0.5.0
+# ---
+# apiVersion: ansible.crossplane.io/v1alpha1
+# kind: ProviderConfigUsage
+# metadata:
+#   name: ansibleconfigusage
+# spec:
+#   forProvider:
+#     configRef:
+#       name: ansibleconfig
+#   providerConfigRef:
+#     name: ansibleconfig
+---
+apiVersion: ansible.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: ansibleconfig
+spec:
+  credentials:
+    - filename: aws-credentials.json
+      secretRef:
+        namespace: crossplane-system
+        name: aws-secret
+        key: creds
+      source: Secret
+
+---
+apiVersion: ansible.crossplane.io/v1alpha1
+kind: AnsibleRun
+metadata:
+  name: sample-instance-spot
+spec:
+  forProvider:
+    roles:
+      - name: nginxinc.ansible-role-nginx
+        src: https://github.com/nginxinc/ansible-role-nginx.git
+        version: 0.9.1
+    vars:
+      nginx_vhosts:
+        - listen: 80
+          server_name: localhost
+          root: /var/www/html
+          index: index.html
+          state: present
+    executableInventory: True
+    inventoryInline: |
+      #!/usr/bin/env python3
+
+      import argparse
+      import boto3
+      import json
+
+      def parse_args():
+          parser = argparse.ArgumentParser(description='AWS dynamic inventory script')
+          parser.add_argument('--list', action='store_true', help='List instances')
+          return parser.parse_args()
+
+      def get_aws_inventory():
+          ec2 = boto3.client('ec2', region_name='your_aws_region')
+          
+          instances = ec2.describe_instances()
+
+          inventory = {
+              '_meta': {
+                  'hostvars': {}
+              },
+              'all': {
+                  'hosts': []
+              }
+          }
+
+          for reservation in instances['Reservations']:
+              for instance in reservation['Instances']:
+                  instance_id = instance['InstanceId']
+                  public_ip = instance.get('PublicIpAddress', '')
+                  private_ip = instance.get('PrivateIpAddress', '')
+
+                  inventory['all']['hosts'].append(instance_id)
+                  inventory['_meta']['hostvars'][instance_id] = {
+                      'ansible_host': public_ip or private_ip,
+                      'ansible_user': 'your_ssh_user',
+                      # Add other host-specific variables as needed
+                  }
+
+          return inventory
+
+      def main():
+          args = parse_args()
+
+          if args.list:
+              inventory = get_aws_inventory()
+              print(json.dumps(inventory, indent=2))
+
+      if __name__ == '__main__':
+          main()
+    # playbookInline: |
+    # ---
+    # - name: Run nginx role
+    #   hosts: all
+    #   become: true
+    #   roles:
+    #     - nginxinc.ansible-role-nginx
+    #   vars:
+    #     nginx_vhosts:
+    #       - listen: 80
+    #         server_name: localhost
+    #         root: /var/www/html
+    #         index: index.html
+    #         state: present
+    # inventories:
+    #   - source: Secret
+    #     secretRef:
+    #       namespace: crossplane-system
+    #       name: inventory
+    #       key: hosts
+  providerConfigRef:
+    name: ansibleconfig
+

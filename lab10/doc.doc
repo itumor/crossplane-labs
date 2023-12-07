@@ -1,0 +1,49 @@
+# FILEPATH
+
+"""
+Documentation for how to use GitHub Copilot: Prompts, tips, and use cases.
+
+GitHub Copilot is an AI-powered code completion tool developed by GitHub. It provides intelligent code suggestions and completions to assist developers in writing code more efficiently.
+
+Prompts:
+- GitHub Copilot generates prompts based on the context of your code. These prompts can help you complete code snippets, functions, or even entire classes.
+- To use a prompt, simply select it from the suggestions provided by GitHub Copilot and press Enter. The generated code will be inserted at the cursor position.
+
+Tips:
+1. Review the suggestions: GitHub Copilot provides multiple suggestions for completing your code. Take a moment to review them and choose the one that best fits your needs.
+2. Customize the suggestions: You can customize the suggestions provided by GitHub Copilot by giving it feedback. If a suggestion is incorrect or not helpful, you can provide feedback to help improve future suggestions.
+3. Use keyboard shortcuts: GitHub Copilot supports various keyboard shortcuts to improve your productivity. Familiarize yourself with these shortcuts to speed up your coding process.
+
+Use Cases:
+1. Code completion: GitHub Copilot can help you complete code snippets, functions, or classes by generating suggestions based on the context of your code.
+2. Learning new programming languages: If you're new to a programming language, GitHub Copilot can provide helpful suggestions and examples to guide you in writing code.
+3. Exploring APIs and libraries: GitHub Copilot can assist you in exploring new APIs and libraries by generating code snippets and examples.
+
+Remember, GitHub Copilot is a tool to assist you in writing code, but it's important to review and understand the generated code to ensure its correctness and security.
+
+For more information and detailed usage instructions, refer to the official GitHub Copilot documentation.
+"""
+/// <summary>
+/// This code is a result of a previous interaction with GitHub Copilot.
+/// </summary>
+# FILEPATH
+
+def copilot(prpop):
+    """
+    Performs a specific operation on the given `prpop` parameter.
+
+    Args:
+        prpop (type): The parameter representing the input for the operation.
+
+    Returns:
+        type: The result of the operation.
+
+    Raises:
+        ValueError: If the `prpop` parameter is invalid.
+
+    Examples:
+        >>> copilot(10)
+        20
+    """
+    # Function implementation goes here
+    pass

@@ -14,3 +14,4 @@ spec:
     region: eu-central-1
   providerConfigRef:
     name: crossplane-default
+    
